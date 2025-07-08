@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Results: {{ question.question_text }}{% endblock %}
+
+{% block content %}
+<h1>{{ question.question_text }}</h1>
+
+{% if question.choices.all %}
+    {% with total_votes=question.choices.all|length %}
+    {% with vote_sum=0 %}
+        {% for choice in question.choices.all %}
+            {% with vote_sum=vote_sum|add:choice.votes %}
+            {% endwith %}
+        {% endfor %}
+    {% endwith %}
+    {% endwith %}
+
+    <ul class="results-list">
+        {% for choice in question.choices.all %}
+            {% with total_votes=question.total_votes %}
+                <li>
+                    <div class="choice-text">
+                        {{ choice.choice_text }} — {{ choice.votes }} vote{{ choice.votes|pluralize }}
+                    </div>
+                    <div class="progress-bar">
+                        {% if total_votes > 0 %}
+                            {% widthratio choice.votes total_votes 100 as percentage %}
+                            <div class="progress-fill" style="width: {{ percentage }}%">
+                                {{ percentage }}%
+                            </div>
+                        {% else %}
+                            <div class="progress-fill" style="width: 0%">
+                                0%
+                            </div>
+                        {% endif %}
+                    </div>
+                </li>
+            {% endwith %}
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No choices available for this question.</p>
+{% endif %}
+
+<div class="vote-again">
+    <a href="{% url 'polls:detail' question.id %}">← Vote again?</a>
+</div>
+
+{% endblock %}

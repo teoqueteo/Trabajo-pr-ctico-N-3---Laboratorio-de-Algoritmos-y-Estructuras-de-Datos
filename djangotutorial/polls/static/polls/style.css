@@ -1,0 +1,732 @@
+/* ================= GLOBAL STYLES ================= */
+
+:root {
+    --bg-color: #0d0d0d;
+    --main-color: red;
+    --text-color: #f0f0f0;
+    --accent-color: #1a1a1a;
+    --highlight-color: #ff3333;
+}
+
+/* Light theme variables */
+html.light {
+    --bg-color: #f5f5f5;
+    --main-color: #d00000;
+    --text-color: #1a1a1a;
+    --accent-color: #ffffff;
+    --highlight-color: #990000;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    margin: 0;
+    padding: 1rem;
+    transition: background-color 0.5s, color 0.5s;
+    opacity: 0;
+    animation: fadeIn 0.6s ease-in-out forwards;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    background-color: var(--accent-color);
+    padding: 2rem;
+    border-radius: 10px;
+    max-width: 1000px;
+    margin: 0 auto;
+    box-shadow: 0 0 15px var(--main-color);
+    animation: slideIn 0.6s ease-in-out;
+    flex: 1;
+    width: 100%;
+}
+
+/* ================= HEADER ================= */
+
+.header-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+header h1 a {
+    text-decoration: none;
+    color: var(--main-color);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+header h1 a:hover {
+    color: var(--highlight-color);
+}
+
+.logo {
+    height: clamp(24px, 5vw, 32px);
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: rotate(360deg);
+}
+
+.site-title {
+    white-space: nowrap;
+}
+
+/* ================= NAVIGATION ================= */
+
+.navbar {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin: 0.5rem 0;
+}
+
+.navbar a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s, transform 0.3s;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    white-space: nowrap;
+}
+
+.navbar a:hover {
+    color: var(--main-color);
+    transform: translateY(-2px);
+}
+
+/* ================= THEME TOGGLE ================= */
+
+.theme-toggle {
+    margin-top: 0.5rem;
+}
+
+#toggle-theme {
+    background: none;
+    border: 2px solid var(--main-color);
+    color: var(--main-color);
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: fit-content;
+}
+
+#toggle-theme:hover {
+    background: var(--main-color);
+    color: var(--accent-color);
+    transform: scale(1.05);
+}
+
+.theme-icon {
+    font-size: 1.1rem;
+}
+
+.theme-text {
+    font-size: 0.9rem;
+}
+
+/* ================= POLL LIST ================= */
+
+.poll-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 70vh; /* Set maximum height for scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 2px solid var(--main-color);
+    border-radius: 10px;
+    padding: 1rem;
+    background-color: var(--bg-color);
+}
+
+/* Custom scrollbar styling */
+.poll-list::-webkit-scrollbar {
+    width: 12px;
+}
+
+.poll-list::-webkit-scrollbar-track {
+    background: var(--accent-color);
+    border-radius: 10px;
+}
+
+.poll-list::-webkit-scrollbar-thumb {
+    background: var(--main-color);
+    border-radius: 10px;
+    border: 2px solid var(--accent-color);
+}
+
+.poll-list::-webkit-scrollbar-thumb:hover {
+    background: var(--highlight-color);
+}
+
+/* Firefox scrollbar styling */
+.poll-list {
+    scrollbar-width: thin;
+    scrollbar-color: var(--main-color) var(--accent-color);
+}
+
+.poll-list li {
+    margin: 1rem 0;
+    padding: 1rem;
+    background-color: var(--accent-color);
+    border-left: 5px solid var(--main-color);
+    border-radius: 5px;
+    transition: transform 0.2s, background-color 0.3s, box-shadow 0.3s;
+    word-wrap: break-word;
+}
+
+.poll-list li:hover {
+    transform: translateX(10px);
+    background-color: var(--bg-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.poll-list li:first-child {
+    margin-top: 0;
+}
+
+.poll-list li:last-child {
+    margin-bottom: 0;
+}
+
+.poll-list a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    word-break: break-word;
+}
+
+/* ================= FORMS ================= */
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+fieldset {
+    border: 2px solid var(--main-color);
+    border-radius: 10px;
+    padding: 1.5rem;
+    background-color: var(--bg-color);
+    margin: 0;
+}
+
+legend {
+    padding: 0 1rem;
+    font-weight: bold;
+    color: var(--main-color);
+}
+
+legend h1 {
+    margin: 0;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    word-wrap: break-word;
+}
+
+input[type="submit"] {
+    background-color: var(--main-color);
+    color: white;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+input[type="submit"]:hover {
+    background-color: var(--highlight-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* ================= FOOTER ================= */
+
+footer {
+    text-align: center;
+    margin-top: 2rem;
+    color: #888;
+    font-size: 0.9rem;
+    padding: 1rem 0;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.social-links a {
+    color: var(--text-color);
+    font-size: 1.5rem;
+    transition: color 0.3s, transform 0.3s;
+    padding: 0.5rem;
+    border-radius: 50%;
+}
+
+.social-links a:hover {
+    color: var(--main-color);
+    transform: scale(1.2);
+}
+
+/* ================= LOADER ================= */
+
+#loader-wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-color);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.6s ease;
+    top: 0;
+    left: 0;
+}
+
+.loader {
+    border: 8px solid var(--accent-color);
+    border-top: 8px solid var(--main-color);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ================= ERROR & 404 ================= */
+
+.error {
+    color: #ff6666;
+    font-weight: bold;
+    background-color: rgba(255, 102, 102, 0.1);
+    padding: 1rem;
+    border-radius: 5px;
+    border-left: 4px solid #ff6666;
+    margin: 1rem 0;
+}
+
+.not-found {
+    text-align: center;
+    padding: 4rem 1rem;
+}
+
+.not-found h1 {
+    font-size: clamp(3rem, 8vw, 5rem);
+    color: var(--main-color);
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.not-found a {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--main-color);
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s;
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--main-color);
+    border-radius: 5px;
+}
+
+.not-found a:hover {
+    background-color: var(--main-color);
+    color: white;
+}
+
+/* ================= ANIMATIONS ================= */
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(20px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+/* === Results Progress Bars === */
+.results-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.results-list li {
+    margin-bottom: 1.5rem;
+    background-color: var(--bg-color);
+    padding: 1rem;
+    border-radius: 10px;
+    border-left: 4px solid var(--main-color);
+}
+
+.choice-text {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    word-wrap: break-word;
+}
+
+.progress-bar {
+    background-color: var(--accent-color);
+    border-radius: 10px;
+    overflow: hidden;
+    height: 2rem;
+    position: relative;
+    border: 2px solid var(--main-color);
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--main-color), var(--highlight-color));
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 1rem;
+    color: white;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: width 0.8s ease;
+    min-width: fit-content;
+}
+
+.progress-fill:empty {
+    min-width: 0;
+}
+
+/* === Vote Again Link === */
+.vote-again {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.vote-again a {
+    display: inline-block;
+    color: var(--main-color);
+    font-weight: bold;
+    text-decoration: none;
+    padding: 0.8rem 1.5rem;
+    border: 2px solid var(--main-color);
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.vote-again a:hover {
+    background-color: var(--main-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* === Custom Radio Buttons === */
+.choices {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.custom-radio {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    padding: 1rem;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    background-color: var(--bg-color);
+    word-wrap: break-word;
+}
+
+.custom-radio:hover {
+    background-color: var(--accent-color);
+    transform: scale(1.02);
+}
+
+.custom-radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.radio-mark {
+    width: 24px;
+    height: 24px;
+    border: 3px solid var(--main-color);
+    border-radius: 50%;
+    background-color: transparent;
+    transition: all 0.3s ease;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.custom-radio input:checked + .radio-mark {
+    background-color: var(--main-color);
+    box-shadow: 0 0 0 4px rgba(255, 0, 0, 0.2);
+}
+
+.custom-radio input:checked + .radio-mark::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: white;
+}
+
+/* === New Tag on Polls === */
+.new-tag {
+    display: inline-block;
+    background: linear-gradient(45deg, var(--main-color), var(--highlight-color));
+    color: white;
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 12px;
+    margin-left: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    animation: pulse 2s infinite;
+    white-space: nowrap;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* ================= RESPONSIVE DESIGN ================= */
+
+/* Tablet styles */
+@media (max-width: 768px) {
+    body {
+        padding: 0.5rem;
+    }
+    
+    main {
+        padding: 1.5rem;
+        margin: 0;
+    }
+    
+    .header-container {
+        gap: 0.8rem;
+    }
+    
+    .navbar {
+        gap: 1rem;
+        margin: 0.5rem 0;
+    }
+    
+    .navbar a {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    #toggle-theme {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+    
+    .theme-text {
+        font-size: 0.8rem;
+    }
+    
+    .social-links {
+        gap: 0.8rem;
+    }
+    
+    fieldset {
+        padding: 1rem;
+    }
+    
+    .custom-radio {
+        padding: 0.8rem;
+        gap: 0.8rem;
+    }
+    
+    .poll-list {
+        max-height: 60vh; /* Slightly smaller on tablets */
+    }
+}
+
+/* Mobile styles */
+@media (max-width: 480px) {
+    body {
+        padding: 0.25rem;
+    }
+    
+    main {
+        padding: 1rem;
+        border-radius: 8px;
+    }
+    
+    .header-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    header h1 a {
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+    
+    .navbar {
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+        align-items: center;
+    }
+    
+    .navbar a {
+        display: block;
+        text-align: center;
+        padding: 0.6rem 1rem;
+        min-width: 120px;
+    }
+    
+    #toggle-theme {
+        width: 100%;
+        max-width: 200px;
+        justify-content: center;
+    }
+    
+    .poll-list {
+        max-height: 50vh; /* Smaller on mobile */
+        padding: 0.8rem;
+    }
+    
+    .poll-list li {
+        padding: 0.8rem;
+        margin: 0.8rem 0;
+    }
+    
+    .poll-list li:hover {
+        transform: translateX(5px);
+    }
+    
+    fieldset {
+        padding: 0.8rem;
+    }
+    
+    .custom-radio {
+        padding: 0.6rem;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+    }
+    
+    .radio-mark {
+        width: 20px;
+        height: 20px;
+        border-width: 2px;
+    }
+    
+    .custom-radio input:checked + .radio-mark::after {
+        width: 6px;
+        height: 6px;
+    }
+    
+    .progress-bar {
+        height: 1.8rem;
+    }
+    
+    .progress-fill {
+        font-size: 0.8rem;
+        padding-right: 0.5rem;
+    }
+    
+    .vote-again a {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .social-links {
+        gap: 0.5rem;
+    }
+    
+    .social-links a {
+        font-size: 1.3rem;
+        padding: 0.4rem;
+    }
+}
+
+/* Very small screens */
+@media (max-width: 320px) {
+    main {
+        padding: 0.8rem;
+    }
+    
+    .custom-radio {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .radio-mark {
+        align-self: flex-start;
+    }
+    
+    .navbar a {
+        min-width: 100px;
+        font-size: 0.85rem;
+    }
+    
+    .poll-list {
+        max-height: 45vh; /* Even smaller on very small screens */
+    }
+}

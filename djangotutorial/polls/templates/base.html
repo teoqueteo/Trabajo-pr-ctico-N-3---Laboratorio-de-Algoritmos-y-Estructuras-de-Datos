@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Polls App{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{% static 'polls/images/favicon-16x16.png' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Loader -->
+    <div id="loader-wrapper">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <h1>
+                <a href="{% url 'polls:index' %}">
+                    <img src="{% static 'polls/images/favicon-16x16.png' %}" alt="Logo" class="logo">
+                    <span class="site-title">Polls App</span>
+                </a>
+            </h1>
+
+            <nav class="navbar">
+                <a href="{% url 'polls:index' %}">Inicio</a>
+                <a href="https://github.com/teoqueteo" target="_blank">GitHub</a>
+                <a href="mailto:teoqueteo@gmail.com">Contacto</a>
+            </nav>
+
+            <div class="theme-toggle">
+                <button id="toggle-theme" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                    <span class="theme-text">Modo oscuro</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="https://github.com/teoqueteo" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="mailto:teoqueteo@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            <a href="https://linkedin.com/in/teo-szychowski" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://twitter.com/teoqueteo" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        </div>
+        <p>&copy; 2025 Teo's Polls Inc.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize theme before page loads to prevent flash
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            const html = document.documentElement;
+            
+            if (savedTheme === 'light') {
+                html.classList.add('light');
+            }
+        })();
+
+        // Loader fade-out
+        window.addEventListener("load", function () {
+            const loader = document.getElementById("loader-wrapper");
+            if (loader) {
+                loader.style.opacity = 0;
+                loader.style.pointerEvents = "none";
+                setTimeout(() => {
+                    if (loader.parentNode) {
+                        loader.remove();
+                    }
+                }, 600);
+            }
+        });
+
+        // Theme toggle with corrected logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleButton = document.getElementById('toggle-theme');
+            const themeIcon = toggleButton.querySelector('.theme-icon');
+            const themeText = toggleButton.querySelector('.theme-text');
+            const html = document.documentElement;
+            
+            if (toggleButton) {
+                // Update button text and icon based on current theme
+                function updateButtonDisplay() {
+                    const isLight = html.classList.contains('light');
+                    if (isLight) {
+                        // Currently light theme, show sun icon
+                        themeIcon.textContent = '🌞';
+                        themeText.textContent = 'Modo claro';
+                    } else {
+                        // Currently dark theme, show moon icon
+                        themeIcon.textContent = '🌙';
+                        themeText.textContent = 'Modo oscuro';
+                    }
+                }
+                
+                // Set initial button display
+                updateButtonDisplay();
+                
+                toggleButton.addEventListener('click', function() {
+                    html.classList.toggle('light');
+                    const isLight = html.classList.contains('light');
+                    
+                    // Save theme preference
+                    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+                    
+                    // Update button display
+                    updateButtonDisplay();
+                    
+                    // Add a small animation effect
+                    toggleButton.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        toggleButton.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            }
+        });
+
+        // Add smooth transitions when theme changes
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add transition class after page loads to prevent initial animation
+            setTimeout(() => {
+                document.body.style.transition = 'background-color 0.5s, color 0.5s';
+            }, 100);
+        });
+    </script>
+
+</body>
+</html>
