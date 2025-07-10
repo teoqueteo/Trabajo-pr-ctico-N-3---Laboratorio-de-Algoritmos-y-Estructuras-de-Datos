@@ -16,8 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.shortcuts import redirect
+
+# Función para redirigir la raíz a polls
+def redirect_to_polls(request):
+    return redirect('/polls/')
 
 urlpatterns = [
+    path('', redirect_to_polls, name='home'),  # Redirige la raíz a polls
     path("admin/", admin.site.urls),
     path("polls/", include("polls.urls")),
 ]
